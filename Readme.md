@@ -1,14 +1,12 @@
-### Project Title:
-Assessment 3 of Poly proof
+### Title:
+Polygon ZKevm Assignment - ZK Circuit Implementation
 
-### Creation of the project:
-        * visit https://github.com/gmchad/zardkat ==> it is a template to implement zkSNARK circuit using circom.
+### How to run this program:
+        * visit (https://github.com/shivam70066/Polygon-zkEVV-Module-3-Project)
         * Fork and clone this repo.
         * Open the terminal and write command npm i
-        * paste the code of circuit.circom inside the circuit.circom inside ./circuits/multiplier
-        * paste the text inside input.json inside ./circuits/multiplier/input.json
         * compile the circuit using command npx hardhat circom.
-        * It will generate the out folder inside ./circuits/multiplier which contains the circuit intermediatories.
+        * It will generate the out folder inside ./circuits/ShivamCircuit which contains the circuit intermediatories.
         * configure your hardhat.config.js to deploy it on a testnet.
         * After configuration, run npx hardhat run scripts/deploy.ts --network <network name>
         * You will get a contract address and a verification status with respect to your input.json.
@@ -21,18 +19,38 @@ Assessment 3 of Poly proof
 ### Template Circom Code:
         pragma circom 2.0.0;
         
-        /*This circuit template checks that c is the multiplication of a and b.*/  
-       
-        template Multiplier2 () {  
-               // Declaration of signals.  
-               signal input a;  
-               signal input b;  
-               signal output c;  
-               // Constraints.  
-               c <== a * b;  
-       }
-       component main = Multiplier2();
+        template ShivamCircuit (){  
+              //input signal
+              signal input a;
+             signal input b;
 
-### Output:
-![image](https://github.com/Alok-Raturi/Poly-proof-module-3/assets/110283609/5dcaab2a-6a9e-4c80-a566-fc62c90e187e)
+              // signals from out gates
+             signal X;
+             signal Y;
+   
+                 // Main output signal
+                 signal output Q;
+              
+                 // creating instances of gates
+                 component and= AND();
+                 component not = NOT();
+                 component or  = OR();
+              
+                 // AND Gate Logic
+                 and.a <== a;
+                 and.b <== b;
+                 X<== and.out;
+              
+                 // NOT gate Logic
+                 not.in <== b;
+                 Y<== not.out;
+              
+                 // OR gate Logic
+                 or.a <== X;
+                 or.b<== Y;
+                 Q<== or.out;
+              }
+
+### Author
+Shivam Gupta (UID- 22MCA20112) (METACRAFTER USERNAME- shivam311)
 
